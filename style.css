@@ -17,7 +17,7 @@ body{
     width: 126px;
     height: 60px;
     margin-left:40px;
-	background:url(../logo.png) no-repeat left;
+	background:url(logo.png) no-repeat left;
 }
 #point{
 	float: right;
@@ -116,7 +116,7 @@ dd{
   	line-height: 30px;
  }
 .left {
-   width: 37%;
+   width: 40%;
     height: 25px;
 }
 .left span{
@@ -128,7 +128,7 @@ dd{
 	height: 25px;
 }
 .right{
-	width: 26%;
+	width: 23%;
 	height: 25px;
 }
 .left,.mid,.right{
