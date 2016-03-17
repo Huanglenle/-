@@ -116,7 +116,7 @@ dd{
   	line-height: 30px;
  }
 .left {
-   width: 530px;
+   width: 37%;
     height: 25px;
 }
 .left span{
@@ -124,11 +124,11 @@ dd{
 
 }
 .mid{
-	width: 400px;
+	width: 37%;
 	height: 25px;
 }
 .right{
-	width: 300px;
+	width: 26%;
 	height: 25px;
 }
 .left,.mid,.right{
