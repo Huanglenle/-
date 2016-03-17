@@ -1,0 +1,175 @@
+body,h1,ul,li,div{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background-color:#DEDEDE;
+	font-family: "微软雅黑";
+}
+#side_head{
+	height: 60px;
+	width: 100%;
+	background-color: #333333;
+	margin:0 auto;
+}
+#logo{
+	float: left;
+    width: 126px;
+    height: 60px;
+    margin-left:40px;
+	background:url(../images/logo.png) no-repeat left;
+}
+#point{
+	float: right;
+}
+#point li{
+	width:105px;
+	float:left;
+	text-align: center;
+	line-height: 60px;
+	list-style: none;
+}
+#point a{
+	text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+#point .special{
+	color:gray;
+}
+#all_att{
+	background-color: #fff;
+	margin: 20px;
+	padding: 20px;
+}
+.second_head{
+	font-size: 20px;
+	color: #606561;
+}
+.author{
+	font-size: 14px;
+	color: #7396BC;
+}
+p{
+	text-indent: 2em;
+}
+.lists li{
+    list-style: none;
+}
+dd{
+    position: relative;
+	width: 150px;
+	height: 150px;
+	border: 1px solid  #DEDEDE;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+ dd img{
+ 	position: absolute;
+    height: 55%;
+    width: 80%;
+    left:15px;
+    bottom: 15px;
+ }
+ dd div{
+ 	text-align: center;
+ 	line-height: 15px;
+ 	margin:15px auto;
+ }
+ .rank{
+ 	font-size: 17px;
+ 	font-weight: bold;
+ }
+ table{
+ 	border-collapse:collapse;
+ 	width: 100%;
+ 	border: 1px solid #DEDEDE;
+ }
+ td{
+ 	padding:3px;
+ 	border-right: 1px solid #DEDEDE;
+ 	border-bottom: 1px solid #DEDEDE;
+ }
+ thead{
+ 	background-color: #363636;
+ 	color: #fff;
+ 	font-weight: bold;
+ }
+ tfoot td{
+ 	background-color: #CCCCCC;
+ 	font-weight: bold;
+    border-right: none;
+ }
+ .sidebar{
+    border: 1px solid #DEDEDE;
+    margin-top: 20px;
+    height: 600px;
+ }
+ #sidebar_head{
+ 	border-bottom: 1px solid #DEDEDE;
+ 	font-size: 12px;
+ 	background-color: #DEDEDE;
+ 	height: 30px;
+ }
+ #sidebar_head h2{
+  	margin-top: 0;
+  	line-height: 30px;
+ }
+.left {
+	width: 630px;
+    height: 25px;
+}
+.left span{
+	float: right;
+
+}
+.mid{
+	width: 500px;
+	height: 25px;
+}
+.right{
+	width: 294px;
+	height: 25px;
+}
+.left,.mid,.right{
+	float: left;
+    margin-top: 15px;
+}
+.email{
+	margin-top: 80px;
+}
+.txt{
+    width: 200px;
+    height: 22px;
+    border:1px solid #DEDEDE;
+}
+.mid span{
+	color: gray;
+	font-size: 15px;
+    margin-left:10px;
+}
+
+.btn{
+	clear: both;
+	width: 300px;
+	height: 40px;
+    margin: 250px auto;
+    text-align: center;
+    line-height: 250px;
+   
+}
+#pos{
+	width: 290px;
+	height: 35px;
+	color: #fff;
+	font-weight: bold;
+	font-size: 18px;
+	background-color: #3656D0;
+}
+.txt_profile textarea{
+	width: 300px;
+    height: 100px;
+}
+#site{
+	width: 220px;
+}
