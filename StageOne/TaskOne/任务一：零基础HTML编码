@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="side_head">
-		<div id="logo"><!-- <h1>网站一级标题</h1> --></div>
+		<div id="logo"><h1>网站一级标题</h1></div>
     <div id="point">
 		 <ul>
 			<li><a href="#">导航链接一</a></li>
