@@ -64,7 +64,7 @@ ul {
 	float: left;
     width: 641px;
     height: 301px;
-    background:url(https://github.com/Huanglenle/Contest-questions-of-baidu/raw/master/StageOne/TaskSix/ad.gif) no-repeat;
+    background:url("https://github.com/Huanglenle/Contest-questions-of-baidu/raw/master/StageOne/TaskSix/ad.gif") no-repeat;
 }
 #ad_left .cover{
     width: 191px;
