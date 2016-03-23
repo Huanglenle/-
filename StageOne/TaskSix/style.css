@@ -64,7 +64,7 @@ ul {
 	float: left;
     width: 641px;
     height: 301px;
-    background:url(ad.gif) no-repeat;
+    /*background:url(ad.gif) no-repeat;*/
 }
 #ad_left .cover{
     width: 191px;
