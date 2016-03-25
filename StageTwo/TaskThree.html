@@ -1,0 +1,77 @@
+将数据按照某种顺序排序后，在resort列表中按照顺序显示出来
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+</head>
+
+<body>
+    <ul id="source">
+        <li>北京空气质量：<b>90</b></li>
+        <li>上海空气质量：<b>70</b></li>
+        <li>天津空气质量：<b>80</b></li>
+        <li>广州空气质量：<b>50</b></li>
+        <li>深圳空气质量：<b>40</b></li>
+        <li>福州空气质量：<b>32</b></li>
+        <li>成都空气质量：<b>90</b></li>
+    </ul>
+    <ul id="resort">
+    </ul>
+    <button id="sort-btn">排序</button>
+    <script type="text/javascript">
+    (function() {
+        //获取DOM元素
+        var source = document.getElementById("source"),
+            resort = document.getElementById("resort"),
+            button = document.getElementById("sort-btn");
+
+
+        //获取空气的数据
+        function GetTo() {
+          if (resort.getElementsByTagName("li")[0]) {
+            return false;
+          };
+            var Li_li = source.getElementsByTagName("li"),
+                Li_b = source.getElementsByTagName("b");
+            Li_Array = [];
+            for (var i = 0; i < Li_li.length; i++) {
+                Li_Array.push((Li_li[i].firstChild.nodeValue) + (Li_b[i].firstChild.nodeValue))
+            }
+            GetGo();
+        }
+
+        //截取数字并转换做排序
+        function GetGo() {
+            var z = 0;
+            for (var i = 0; i < Li_Array.length; i++) {
+                var main = Li_Array[i],
+                    temp = i;
+                for (var j = i + 1; j < Li_Array.length; j++) {
+                    if (Number(main.substring(7)) < Number(Li_Array[j].substring(7))) {
+                        main = Li_Array[j];
+                        temp = j;
+                    }
+                }
+                z = Li_Array[i];
+                Li_Array[i] = main;
+                Li_Array[temp] = z;
+            }
+            GetPo();
+        }
+
+        function GetPo() {
+            for (var i = 0; i < Li_Array.length; i++) {
+                var Li = document.createElement("li"),
+                    text_main = document.createTextNode("第" + (i + 1) + "名" + ":" + Li_Array[i]);
+                Li.appendChild(text_main);
+                resort.appendChild(Li);
+            }
+        }
+        button.onclick = GetTo;
+    })()
+    </script>
+</body>
+
+</html>
