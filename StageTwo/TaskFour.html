@@ -1,0 +1,136 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+</head>
+
+<body>
+    <div>
+        <label>城市名称：
+            <input id="aqi_city_input" type="text">
+        </label>
+        <br>
+        <label>空气质量指数：
+            <input id="aqi_value_input" type="text">
+        </label>
+        <br>
+        <button id="add_btn">确认添加</button>
+    </div>
+    <table id="aqi_table" border="1px">
+        <!-- 
+    <tr>
+      <td>城市</td><td>空气质量</td><td>操作</td>
+    </tr>
+    <tr>
+      <td>北京</td><td>90</td><td><button>删除</button></td>
+    </tr>
+    <tr>
+      <td>北京</td><td>90</td><td><button>删除</button></td>
+    </tr>
+   -->
+    </table>
+    <script type="text/javascript">
+    var hllp = {
+        dom_1: function() {
+            return document.getElementById("aqi_city_input");
+        },
+        dom_2: function() {
+            return document.getElementById("aqi_value_input");
+        },
+        dom_3: function() {
+            return document.getElementById("add_btn");
+        },
+        dom_4: function() {
+            return document.getElementById("aqi_table");
+        },
+        text_1: "城市名称：",
+        text_2: "空气质量指数：",
+        text_3: "操作",
+        //静态方法 只执行一次 不能乱动，初始化table上的标题
+        int_Start: function() {
+            var tr = document.createElement("tr"),
+                td1 = document.createElement("td"),
+                td2 = document.createElement("td"),
+                td3 = document.createElement("td"),
+                td1_text = document.createTextNode(hllp.text_1),
+                td2_text = document.createTextNode(hllp.text_2),
+                td3_text = document.createTextNode(hllp.text_3);
+            td1.appendChild(td1_text);
+            td2.appendChild(td2_text);
+            td3.appendChild(td3_text);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            hllp.dom_4().appendChild(tr);
+        },
+        //表单验证
+        int_1: function() {
+            var text1_name = hllp.dom_1().value,
+                text1_num = hllp.dom_2().value,
+                re = new RegExp("^[A-Za-z]+"), //输入英文的正则
+                re_2 = new RegExp("[\u4e00-\u9fa5]"), //输入汉字的正则
+                result = re.test(text1_name), //返回一个布尔值
+                result_2 = re_2.test(text1_name),
+                kg = text1_name.search(/[\s]/g), //如果没有空格就等于-1
+                kg_2 = text1_num.search(/[\s]/g);
+
+
+            if (((result || result_2) && (kg == -1)) && ((Number(text1_num) == parseInt(text1_num)) && (kg_2 == -1))) { //英文跟中文 且整数
+                hllp.int_2(text1_name, text1_num);
+            } else if (kg != -1 || kg_2 != -1) {
+                alert("你的输入带有空格或特殊字符")
+            } else if (!result && !result_2) {
+                alert("请输入中文或者英文");
+            } else if(Number(text1_num)!=parseInt(text1_num)){
+                alert("请输入整数");
+            }else {
+                alert("城市名与空气指数不能空");
+            };
+        },
+        //构造表格方法
+        int_2: function(Name, Num) {
+            //创建元素与插入相应的属性和文本
+            var tr = document.createElement("tr"),
+                td1 = document.createElement("td"),
+                td2 = document.createElement("td"),
+                td3 = document.createElement("td"),
+                bu_remove = document.createElement("button"),
+                td1_text = document.createTextNode(Name),
+                td2_text = document.createTextNode(Num),
+                bu_text = document.createTextNode("删除");
+
+            td1.appendChild(td1_text);
+            td2.appendChild(td2_text);
+            bu_remove.appendChild(bu_text);
+            td3.appendChild(bu_remove);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            hllp.dom_4().appendChild(tr);
+            hllp.int_3();//这个方法是必须让他重构，不然获取不了button
+        },
+        int_3: function() {
+            remove = hllp.dom_4().getElementsByTagName("button");
+            for (var i = 0; i < remove.length; i++) {
+                remove[i].onclick = function() {
+                    var parent_table = this.parentNode.parentNode.parentNode,
+                        parent_tr = this.parentNode.parentNode;
+                    parent_table.removeChild(parent_tr);
+                }
+            }
+        }
+    }
+
+    window.onload = function() {
+        hllp.int_Start();
+        hllp.dom_3().onclick = function() {
+                hllp.int_1();
+            } //要放在下方，如果放在上面的，获取不到事件的父元素
+    }
+    /*******************                                 ****************************/
+    </script>
+</body>
+
+</html>
