@@ -1,0 +1,239 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+    <style type="text/css">
+    .aqi_chart_wrap {
+        width: 100%;
+        height: 550px;
+        border: #ccc 1px solid;
+        position: relative;
+    }
+    </style>
+</head>
+
+<body>
+    <fieldset id="form_gra_time">
+        <legend>请选择日期粒度：</legend>
+        <label>日
+            <input name="gra_time" value="day" type="radio" checked="checked">
+        </label>
+        <label>周
+            <input name="gra_time" value="week" type="radio">
+        </label>
+        <label>月
+            <input name="gra_time" value="month" type="radio">
+        </label>
+        <legend>请选择查看的城市：</legend>
+        <select id="city_select">
+            <option>北京</option>
+            <option>长沙</option>
+            <option>上海</option>
+            <option>深圳</option>
+        </select>
+    </fieldset>
+    <div class="aqi_chart_wrap" id="aqi">
+    </div>
+    <script type="text/javascript">
+    var aqi = document.getElementById("aqi"),
+        city_select = document.getElementById("city_select"),
+        form_gra_time = document.getElementById("form_gra_time"),
+        Date_main = "2016-01-01",
+        m = 1,
+        Color = ["red", "blue", "green", "yellow", "black"];
+    /*******************************************************/
+    //保存数据
+    function randomBuildData(seed) {
+        var returnData = {};
+        var dat = new Date(Date_main);
+        var datStr = '';
+        for (var i = 1; i < 92; i++) {
+            datStr = getDateStr(dat);
+            returnData[datStr] = Math.ceil(Math.random() * seed);
+            dat.setDate(dat.getDate() + 1);
+        }
+        return returnData;
+        返回一个数组
+    }
+
+    function getDateStr(dat) {
+        var y = dat.getFullYear();
+        var m = dat.getMonth() + 1;
+        m = m < 10 ? '0' + m : m;
+        var d = dat.getDate();
+        d = d < 10 ? '0' + d : d;
+        return y + '-' + m + '-' + d;
+    }
+
+    var aqiSourceData = {
+        "北京": randomBuildData(500),
+        "上海": randomBuildData(300),
+        "长沙": randomBuildData(200),
+        "深圳": randomBuildData(100)
+    };
+
+    //获取哪一个城市 给出相应的数据
+    function GetGo() {
+        var Aqi_text = city_select.value;
+        for (var aqi in aqiSourceData) {
+            if (Aqi_text == aqi) {
+                for (var datStr in aqiSourceData[aqi]) { //初始化数据
+                    a1(aqiSourceData[aqi][datStr], datStr);
+                }
+            }
+        }
+        GetInput();
+        Array_Date = [];
+        Array_Minth = [];
+        Array_day = [];
+        Array_Date_order = [];
+        Array_Minth_order = [];
+        Array_day_order = [];
+    }
+
+    //1 2 3月
+    var Time = 1,
+        T_one, //1月
+        T_two, //2月
+        T_three, //三月
+        T_day, //星期
+
+        Array_Date = [],
+        Array_Date_order = [],
+        Array_Minth = [],
+        Array_Minth_order = [],
+        Array_day = [],
+        Array_day_order = [];
+
+    //这里会执行92次  请注意
+    function a1(num, datStr) {
+        /* 这里是92天的数据 */
+        Array_Date.push(num); //num
+        Array_Date_order.push(datStr); //时间
+        /*92天每七天存入一次数据*/
+        if (Time % 7 == 0) {
+            Array_day.push(T_day / 7); //把七天的平均数存入数组
+            Array_day_order.push("第" + Time / 7 + "个星期"); //把时间存入数组
+            T_day = 0; //重新刷新七天数据
+        } else {
+            T_day += num; //不能整除就累加
+        };
+
+        /*获取1 2 3月分别天数的总数据*/
+        if (Time <= 31) {
+            T_one += num; //一月
+        }
+        if (31 < Time <= 60) {
+            T_two += num; //二月
+        }
+        if (60 < Time <= 91) {
+            T_three += num; //三月
+        }
+
+        /* 数据回临 */
+        if (Time == 91) {
+            if (T_day != 0) {
+                Array_day.push(T_day / (Time % 7)); //最后一个不能被整除的平均数存入数组
+                Array_day_order.push("第" + (Math.floor(Time / 7) + 1) + "个星期");
+            }
+           
+
+            Array_Minth.push(T_one / 51);
+            Array_Minth.push(T_two / 49);
+            Array_Minth.push(T_three / 51);
+            Array_Minth_order.push("一月");
+            Array_Minth_order.push("二月");
+            Array_Minth_order.push("三月");
+            T_day == 0;
+            Time = 0;
+            T_one = 0;
+            T_two = 0;
+            T_three = 0;
+        }
+        Time++; //累加1
+    }
+
+
+    /**************************************************/
+    function GetImage(num_height, ds, L, W) {
+        var div_Date = document.createElement("div"); //生成div
+        aqi.appendChild(div_Date);
+        div_Date.style.position = "absolute";
+        div_Date.style.background = Color[Math.round(Math.random() * 4)];
+        div_Date.style.width = W + "px";
+        div_Date.style.bottom = 0;
+        div_Date.borderRadius=8+"px";//为啥没有用啊。。。。。。
+        div_Date.style.left = (L * m + (m - 1) * W) + 30 + "px";
+        div_Date.setAttribute("title", ds);
+        Ma(div_Date, parseInt(num_height)); //传入元素 实现动画生成效果            
+    }
+    //存储
+    var Time_1 = null;
+    //动态生成效果函数
+    function Ma(obj, Num_height) {
+        m++;
+        obj.Time_1 = setInterval(function() {
+            var ircu = parseInt(attrElement(obj, "height"));
+            var speed = (Num_height - ircu) / 10;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+            if (ircu == Num_height) {
+                clearInterval(obj.Time_1);
+            } else {
+                obj.style.height = ircu + speed + "px";
+            }
+        }, 50);
+    }
+    //获取样式
+    function attrElement(obj, attr) {
+        if (obj.currentStyle) {
+            return obj.currentStyle[attr];
+        } else {
+            return getComputedStyle(obj, false)[attr];
+        }
+    }
+
+
+
+    function GetInput(obj) {
+        aqi.innerHTML = " ";
+        m = 1;
+        var button_click = form_gra_time.getElementsByTagName("input");
+        for (var i = 0; i < button_click.length; i++) {
+            if (button_click[i].checked == true) {
+                var b_v = button_click[i].value;
+                if (b_v == "day") {
+                    for (var j = 0; j < Array_Date.length; j++) {
+                        GetImage(Array_Date[j], Array_Date_order[j], 8, 6);
+                    };
+                } else if (b_v == "week") {
+                    for (var j = 0; j < Array_day.length; j++) {
+                        GetImage(Array_day[j], Array_day_order[j], 55, 40);
+                    };
+                } else if (b_v == "month") {
+                    for (var j = 0; j < Array_Minth.length; j++) {
+                        GetImage(Array_Minth[j], Array_Minth_order[j], 180, 150);
+                    };
+                }
+            }
+        }
+    }
+
+    window.onload = function() {
+        var button_click = form_gra_time.getElementsByTagName("input");
+        for (var i = 0; i < button_click.length; i++) {
+            button_click[i].onclick = function() {
+                if (this.checked == true) {
+                    GetGo();
+                }
+            }
+        };
+        city_select.onchange = GetGo;
+        GetGo(); //第一步  初始化
+    }
+
+    </script>
+</body>
+
+</html>

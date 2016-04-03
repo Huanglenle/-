@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="hea">
+        <input type="text" value="我要飞入" style="width:150px;" class="text">
+        <input type="button" value="左侧人" class="lfenter">
+        <input type="button" value="右侧人" class="rfenter">
+        <input type="button" value="左侧出" class="lfout">
+        <input type="button" value="右侧出" class="rfout">
+    </div>
+    <div id="bod" style="width:320px;background:#ebebeb;">
+        <span style="display:inline-block;width:40px;height:40px;background:red;text-align:center;line-height:40px;margin:10px;">55</span>
+    </div>
+    <p id="pp"></p>
+    <script type="text/javascript">
+    var Time = null,
+        tf = false;
+    var hllp = {
+        //*****************************
+        //获取元素*********************
+        bdy: function() {
+            return document.getElementById("bod");
+        },
+        text_1: function() {
+            return (hllp.getByClass("hea", "text"))[0];
+        },
+        lfenter_bt: function() {
+            return (hllp.getByClass("hea", "lfenter"))[0];
+        },
+        rfenter_bt: function() {
+            return (hllp.getByClass("hea", "rfenter"))[0];
+        },
+        lfout_bt: function() {
+            return (hllp.getByClass("hea", "lfout"))[0];
+        },
+        rfout_bt: function() {
+            return (hllp.getByClass("hea", "rfout"))[0];
+        },
+  
+
+        //*****************************
+        //事件*************************
+            Text_vl: function(T) {
+            if (tf) {
+                return;
+            }
+            tf = true;
+            var pp = document.getElementById("pp");
+            if (!isNaN(hllp.text_1().value)) {
+                if (T == 1) {
+                    hllp.GetStyle("firstChild");
+                } else {
+                    hllp.GetStyle("lastChild");
+                }
+                pp.innerHTML = " ";
+            } else {
+                pp.innerHTML = "请输入数字";
+                tf = false;
+            }
+        },
+        Text_vl2: function(T) {
+            if (tf) {
+                return;
+            }
+            tf = true;
+            if (T == 1) {
+                var text_fir = hllp.bdy().getElementsByTagName("span")[0].innerHTML;
+                hllp.GetStyle2("firstChild", hllp.bdy().getElementsByTagName("span")[0]);
+            } else {
+                var text_fir = hllp.bdy().getElementsByTagName("span")[(hllp.bdy().getElementsByTagName("span").length) - 1].innerHTML;
+                hllp.GetStyle2("lastChild", hllp.bdy().getElementsByTagName("span")[(hllp.bdy().getElementsByTagName("span").length) - 1]);
+            }
+        },
+        //进入
+        GetStyle: function(dir_1) {
+            var span = document.createElement("span"),
+                span_text = document.createTextNode(hllp.text_1().value);
+            span.appendChild(span_text);
+            span.style.display = "inline-block";
+            span.style.background = "red";
+            span.style.margin = "10px";
+            span.style.textAlign = "center";
+            span.style.lineHeight = "40px";
+            span.style.height = "40px";
+            if (dir_1 == "firstChild") {
+                hllp.bdy().insertBefore(span, hllp.bdy().firstChild)
+            } else {
+                hllp.bdy().appendChild(span);
+            }
+            hllp.GetSpeed(span, "width", 40, true);
+        },
+        //出去
+        GetStyle2: function(dir_2, obj) {
+            hllp.GetSpeed(obj, "width", 0, true, dir_2);
+        },
+        //动态
+
+        GetSpeed: function(obj, attr, mb, bol, dir_2) {
+            clearInterval(Time);
+            obj.Time = setInterval(function() {
+                var ircu = parseInt(hllp.attrEvent(obj, attr)),
+                    speed = (mb - ircu) / 20;
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                if (ircu == mb) {
+                    clearInterval(obj.Time);
+                    if (bol) {
+                        if (ircu == 0) {
+                            if (dir_2 == "firstChild") {
+                                hllp.bdy().removeChild(obj);
+                            } else if (dir_2 == 0) {
+                                hllp.bdy().removeChild(obj);
+                            } else if (dir_2 == "lastChild") {
+                                hllp.bdy().removeChild(obj);
+                            }
+                        }
+                        tf = false;
+                    }
+                    tf = false;
+
+                } else {
+                    obj.style.width = ircu + speed + "px";
+                }
+            }, 50)
+        },
+
+
+        //*****************************
+        //解决IE9以上不能使用getElementsByClassName 而给class添加事件
+        getByClass: function(parent, className) {
+            var Par = document.getElementById(parent),
+                eles = [],
+                P_child = Par.getElementsByTagName("*");
+
+            for (var i = 0; i < P_child.length; i++) {
+                if ((P_child[i].className || P_child[i].getAttribute("class")) == className) {
+                    eles.push(P_child[i]);
+                };
+            }
+
+            return eles;
+        },
+        attrEvent: function(obj, attr) {
+            if (obj.currentStyle) {
+                return obj.currentStyle[attr];
+            } else {
+                return getComputedStyle(obj, false)[attr];
+            }
+        }
+    }
+
+    hllp.lfenter_bt().onclick = function() {
+        hllp.Text_vl(1);
+    }
+    hllp.rfenter_bt().onclick = function() {
+        hllp.Text_vl(0);
+    }
+    hllp.lfout_bt().onclick = function() {
+        hllp.Text_vl2(1);
+    }
+    hllp.rfout_bt().onclick = function() {
+        hllp.Text_vl2(0);
+    }
+ 
+    hllp.bdy().onmouseover = function() {
+        var bod_sp = hllp.bdy().getElementsByTagName("span");
+        for (var i = 0; i < bod_sp.length; i++) {
+            bod_sp[i].onclick = function() {
+                if (tf) {
+                    return;
+                }
+                tf = true;
+                hllp.GetSpeed(this, "width", 0, true, 0);
+            }
+        };
+    }
+    </script>
+</body>
+
+</html>
