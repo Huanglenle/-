@@ -1,0 +1,61 @@
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+body{
+	font-family: "微软雅黑";
+}
+input{
+	outline: none;
+}
+fieldset{
+	margin-top: 10px;
+	text-align: center;
+}
+.verify{
+	margin: 20px 0;
+}
+.verify input.txt{
+	margin:0px 10px;
+	width: 300px;
+	height: 30px;
+	padding-left:10px ;
+	border-radius: 5px;
+}
+.txt_name1{
+	border: 1px solid #ccc;
+}
+.txt_name2{
+	border: 1px solid #E2001F;
+}
+.txt_name3{
+	border: 1px solid #63BC46;
+}
+.verify input.btn{
+	width: 50px;
+	height: 30px;
+	border: 1px solid #2F79BA;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 5px;
+	background-color: #2F79BA;
+}
+.verify input.btn:hover{
+	color: #000;
+	background-color: #fff;
+}
+.verify .mgs{
+	height: 25px;
+	margin: 0 auto;
+	font-weight: bold;
+}
+.mgs1{
+	color: #aaa;
+}
+.mgs2{
+	color: #E2001F;
+}
+.mgs3{
+	color: #63BC46;
+}
